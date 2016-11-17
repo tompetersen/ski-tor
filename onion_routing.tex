@@ -1,1 +1,7 @@
-Tom
+% Wie funktioniert das (theoretischer Überblick), 
+% Paper aus Tor-Paper (41 Anonymous connections and onion routing, 48 Onion routing access configuration, 49 Towards an analysis of onion routing security, 27 Hiding routing information) 
+% Einordnung in die Vorarbeiten (Bereits implementierte Anwendungen)
+%Tom
+%Onion Routing basierend auf den 4 Papern beschreiben
+\section{Onion Routing/Technical background}
+The goal of onion routing is not to provide anonymous communication. The goal is to limit the traffic analysis in that way to make it impossible to determine who is communication with whom through a public network. In the onion routing network an initiating application make connections through a sequence of machines called onion routers. Each onion router knows only its adjazent onion routers. Because of that an onion router is not able to know who is communication with whom. The data which is sent by the application is layerd like an onion.Each layer of the onion is encrypted by one onion router and contains the next hop in the route. \cite{reed1998anonymous}

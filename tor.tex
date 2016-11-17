@@ -1,1 +1,23 @@
-Mal schauen, eher beide...
+% Inhalte des Papers (grob), Schwerpunkte (Verbesserungen in Tor gegenüber damals existierenden Systemen), Neuerungen in Tor, etc.
+%Mal schauen, eher beide...
+%-Verbeserungen zu Onion routing:
+%aus dem abstract: 
+%by adding perfect forward secrecy, 
+%congestion control, 
+%directory servers,
+%integrity checking, 
+%configurable exit policies, 
+%and a practical design for location-hidden services via rendezvous points.
+\section{Tor}
+Tor works on the real-world Internet and requires no special privileges or kernel modifications to increase the usability. In case of Tor the usability is a security requirement because it hide users among users and a system with fewer users provides less anonymity.
+Additionally to onion routing, Tor added perfect forward secrecy, congestion control, directory servers, integrity checking, configurable exit policies and a practical design for location-hidden services via rendezvous points.
+
+\textbf{Perfect forward secrecy:} In the original onion routing design a single hostile node can record traffic and later compromise succesive nodes in the circuit. To avoid this Tor uses an incremental path building design. Thant means, that the initiator negotiates session keys with each succecive node in the circuit. If these keys are deleted, the compromised nodes are not able to decrypt old traffic.
+
+\textbf{Congestion control:} If many users choose the same OR-to-OR connectionin their circuits, that connection can be saturated. Without any congestion control this bottleneck can propagate through the whole network. To avoid this, Tor is able to control the circuits bandwidth in each OR. 
+
+\textbf{Directory servers:} Both Onion routing and Tor has to send periodically state informations (known ORs with their current states) to their users. In the onion routing design they flood their network with these state informations. Tor uses so called \textit{directory servers} to distribute this informations through the network. The users download them periodically every 15 minutes via HTTP.
+
+\textbf{Integrity checking:} Tor uses TLS between its nodes. Because of that an adversary is not able to change the content of the data.
+
+\textbf{Rendezvous points:} If a user wants to connect with a hidden server the onion routing design uses long lived "reply onions", which are used to build a circuit to a hidden server. This is bad because the onion routing design does not provide forward security. For a connection between an user and a hidden server, tor uses so called rendezvouz points. If a user wants to create a connection to a hidden server, it uses the introduction points of this hidden server to send them a rendezvous point. The user and the hidden server uses this rendezvous point to create a circuit between them. Every hidden server has circuits to ORs, which are introduction points.\cite{rendezvousPoints}

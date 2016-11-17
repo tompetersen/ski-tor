@@ -10,113 +10,27 @@
 \usepackage{url}
 \usepackage{times}
 \usepackage{helvet}
-
+\usepackage{color}
 
 \begin{document}
 %TBD: infos
-\title{The title of the paper}
+\title{Summary of the paper Tor: Second-Generation Router}
 \author{anonymous authors}
 \date{}
 \maketitle
 
 
-\section{Hints from etherpad}
-	\subsection{Reading}
-
-	\begin{itemize}
-		\item read your paper multiple times
-	   \item find out when and where it has been published
-	   \item understand the relevant basics of the field
-	   \item search for other papers on the same topic to judge the relevance and contribution of your paper
-	     \item published at an earlier time or at a later time
-	     \item dealing with other problems in the same field
-	     \item dealing with similar problems in different fields
-	     \item tackling a similar challenge or other challenges
-	\end{itemize}
-
-\subsection{Writing}
-
-\begin{itemize}
-	\item Write up a summary with your findings
-   \item length restriction: fit it into 4 pages A4 max!
-   \item two-column 11pt Times!
-   \item please use LaTeX for the layout (see template below)
-
-   \item You may (re-)use figures or formulas whenever appropriate (if referenced correctly)
-   \item Do not re-use text from the paper (no copy\&paste)!
-
-   \item upload your summary by the deadline to the skiconf tool
-     \item authors remain anonymous => do NOT include your names!
-     \item bonus: ensure that the PDF metadata does not disclose your login name etc.
-   \item language: English
-\end{itemize}
-
-\subsection{General hints for summary}
-
-\begin{itemize}
-\item Briefly outline the "field" this paper belongs to, the challenges that exist in this field and how your paper fits into the bigger picture
- \item Explain the relevant basics and fundamentals
-   \item What stuff do you have to know in order to understand the content of the paper and to judge its impact?
- \item Your summary should contain answers to the following:
-   \item What are the problems to be solved? Why are they worthwhile to solve?
-   \item What methods are used? How is the problem tackled?
-   \item What results are obtained? What do the results mean?
- \item Additionally: outline the impact of the paper
-   \item What is the "delta" that the authors of the paper achieved in comparison of the state of the art at the time the paper was published
-   \item How is it different/better compared to related works?
-     \item How has the paper been received by the scientific community?
-     \item How do papers that have been published later talk about this paper?
-     \item Is the delta of the paper of relevance today?
-     \item Did the paper influence its field?
-\end{itemize}
-
-\subsection{General advice}
-\begin{itemize}
- \item be as descriptive and concrete as necessary, but still as concise as possible
- \item give examples if suitable
-
- \item most important challenge
-   \item your Summary should be *understandable on its own*
-     \item you will have to leave out lots of (less relevant) details
-     \item but: you may have to add things that are not described in the paper
-
-  \item ask yourself: does the summary contain the most relevant contributions of the paper?
-
- \item do not confuse your summary with the "Abstract" at the beginning of a paper
-   \item your summary contains more details than the abstract of the paper
-   \item your summary contains information *about* the paper (which was not available when the paper was published)
-
-  \item remember: do not copy text word by word from your paper (plagiarism)!!!
-
-\end{itemize}
-
-\newpage
-
-\section{Introduction}
-
-% Thematische Einordnung: Ziele des Ganzen, Onion Routing, anonymisierte Kommunikation (grob!)
+%\input{hints.tex}
+%\newpage
+%\clearpage
 
 \input{introduction.tex}
-
-\section{Onion Routing/Technical background}
-
-% Wie funktioniert das (theoretischer Überblick), 
-% Paper aus Tor-Paper (41 Anonymous connections and onion routing, 48 Onion routing access configuration, 49 Towards an analysis of onion routing security, 27 Hiding routing information) 
-% Einordnung in die Vorarbeiten (Bereits implementierte Anwendungen)
-
 \input{onion_routing.tex}
-
-\section{Tor}
-
-% Inhalte des Papers (grob), Schwerpunkte (Verbesserungen in Tor gegenüber damals existierenden Systemen), Neuerungen in Tor, etc.
 \input{tor.tex}
-
-\section{Importance/Impact}
-
-% Heutige Verwendung, Größe des Netzwerks, auch Contra-Argumente: Nutzung durch Kriminelle etc., Referenzierungen des Papers
-
 \input{impact.tex}
 
+\bibliography{literature} 
+\bibliographystyle{ieeetr}
 \end{document}
 
 
