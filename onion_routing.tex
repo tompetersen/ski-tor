@@ -3,5 +3,58 @@
 % Einordnung in die Vorarbeiten (Bereits implementierte Anwendungen)
 %Tom
 %Onion Routing basierend auf den 4 Papern beschreiben
+
+
+
+% Mixe by David Chaum
+% Onion Routing Project, One of the members -> author of tor paper
+% Previous implementations of onion routing
+
 \section{Onion Routing/Technical background}
-The goal of onion routing is not to provide anonymous communication. The goal is to limit the traffic analysis in that way to make it impossible to determine who is communication with whom through a public network. In the onion routing network an initiating application make connections through a sequence of machines called onion routers. Each onion router knows only its adjazent onion routers. Because of that an onion router is not able to know who is communication with whom. The data which is sent by the application is layerd like an onion.Each layer of the onion is encrypted by one onion router and contains the next hop in the route. \cite{reed1998anonymous}
+
+In \cite{chaum1981untraceable} David Chaum presented the mix concept which used the at that time freshly invented priciple of public key cryptography to build the theoretical foundation of untraceable electronic communication.
+
+In 1995 the work on developing onion routing began - a technique to offer anonymous connections\footnote{
+	The communication using these connections does not have to be anonymous. The goal is to limit the traffic analysis in a way that makes it impossible to determine who is communicating with whom through a public network.
+} using some of the concepts of Chaum \cite{onionroutingproject, goldschlag1996hiding, reed1998anonymous}. In the onion routing network an initiating application makes connections through a sequence of machines called onion routers. The data sent by the application consists of layers of encrypted data (like an onion) containing the next destination of the message in the network. Each layer of the onion is decrypted by one onion router and contains the next hop in the route. So each onion router knows only its adjacent onion routers. Because of that an onion router is not able to know who is communication with whom. 
+
+%TODO: Write it
+%Other systems (found in \cite{tor2004original}):
+%
+%Also state the difference between low-latency and high-latency.
+%	
+%	High-latency networks:
+%	
+%		Babel: 
+%		
+%		Mixmaster: 
+%		
+%		Mixminion:
+%	
+%	Low-latency networks:
+%	
+%		(Anonymizer:)
+%	
+%		JAP: uses fixed routes (cascades)
+%	
+%		PipeNet: 
+%	
+%		Tarzan: 
+%	
+%		MorphMix:
+%	
+%		Crowds: 
+%	
+%		Hordes:
+%	
+%		Herebivore:
+%	
+%		\(P^5\):
+%	
+%		Freedom: 
+%	
+%		Cebolla:
+%	
+%		Anonymity Network:
+	
+Then in 2004 the original Tor paper was published \cite{tor2004original} and the Tor network was deployed.
