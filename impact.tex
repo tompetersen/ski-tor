@@ -13,6 +13,15 @@
 % also consider chapter 8
 % current numbers (https://metrics.torproject.org/)
 
-\section{Importance/Impact}
-This paper has a big impact on the computer since and was cited more than 3000 times by other papers. A wide area onion routing network was briefly deployed but it was not really used because it required a seperate "application proxy" for each supported application protocol and most of them where never written. Tor uses the standard and near-ubquitous SOCKS proxy interface, which support most TCP-based programs without modification.
-Because of that tor is used in the world wide web since 2004 for anonymous connections. Individuals use Tor for censorship circumvention to reach othervise blocked content, to keep websites from tracking them or their family members, to publish services without needed to reveal the location of them or for sensitive communication. Tor is also used by companies or Journalists to communicate with whistleblowers\cite{tor}. But Tor is also used by criminals to sell drugs, child porns, weapons or other illegal things.   
+\section{Importance and impact}
+A wide area network was briefly deployed after the invention of onion routing but it was not really used because it required a seperate "application proxy" for each supported application protocol and most of them were never written. Tor on the other hand uses the standard and near-ubiquitous SOCKS proxy interface, which supports most TCP-based programs without modification.
+
+\begin{figure}
+	\includegraphics[width=\columnwidth]{img/userstats.pdf}
+	\caption{Estimated number of users connecting to Tor. Taken from \cite{tormetrics}.}
+	\label{img_userstats}
+\end{figure}
+
+Because of that Tor is used in the world wide web since 2004 for anonymous connections. Individuals use Tor for censorship circumvention to reach othervise blocked content, to keep websites from tracking them or their family members, to publish services without needing to reveal the location of them or for sensitive communication. Tor is also used by companies or Journalists to communicate with activists or whistleblowers\cite{tor}. Currently there are about two million people using Tor as figure \ref{img_userstats} states. The peak in August if 2013 was probably caused by a botnet using Tor for the communication between the bots and the command and control server\cite{torblog_botnet}. This is an example for the downside of enabling anonymous connections. Tor can also be used by criminals to sell drugs, child porns, weapons or other illegal things.   
+
+Apart from the practical impact of the Tor network the published paper also has a big impact on computer science and was cited more than 3000 times by other papers dealing with improvements for or attacks against Tor, analysis of practical effects of the Tor network or using the developed approach to enable anonymous connections in other fields like VoIP systems.
