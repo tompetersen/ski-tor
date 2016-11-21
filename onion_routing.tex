@@ -12,11 +12,16 @@
 
 \section{Previous work}
 
+This chapter will cover the previous work which has lead to the development of Tor.
+
 In \cite{chaum1981untraceable} David Chaum presented the mix concept which used the at that time freshly invented priciple of public key cryptography to build the theoretical foundation of untraceable electronic communication.
 
 In 1995 the work on developing onion routing began - a technique to offer anonymous connections\footnote{
 	The communication using these connections does not have to be anonymous. The goal is to limit the traffic analysis in a way that makes it impossible to determine who is communicating with whom through a public network.
 } using some of the concepts of Chaum \cite{onionroutingproject, goldschlag1996hiding, reed1998anonymous}. In the onion routing network an initiating application makes connections through a sequence of machines called onion routers. The data sent by the application consists of layers of encrypted data (like an onion) containing the next destination of the message in the network. Each layer of the onion is decrypted by one onion router and contains the next hop in the route. So each onion router knows only its adjacent onion routers. Because of that an onion router is not able to know who is communication with whom. 
+
+
+There are some applications which have implemented the mentioned concepts. They can be differed in high-latency networks, which try to maximize anonymity requiring higher latencies, and low-latency networks, which enable the processing of interactive web traffic at the cost of lower anonymity. Eavesdropper at the end of connections are able to correlate ingoing and outcoming traffic of the network easier. Examples for high-latency networks are Mixmaster or Mixminion, which offer a service to send anonymous emails. Examples for Pre-Tor low-latency network applications are JAP, which is based on fixed mix cascades instead of variable circuits, or MorphMix, a peer to peer based anonymity network.
 
 %TODO: Write it
 %Other systems (found in \cite{tor2004original}):
@@ -57,4 +62,4 @@ In 1995 the work on developing onion routing began - a technique to offer anonym
 %	
 %		Anonymity Network:
 	
-Then in 2004 the original Tor paper was published \cite{tor2004original} and the Tor network was deployed.
+Then in 2004 the original Tor paper was published \cite{tor2004original} (including one of the developers of the original onion routing technique as an author) and the Tor network was deployed.
