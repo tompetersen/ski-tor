@@ -28,8 +28,7 @@ Users of the network use an \textbf{onion proxy} to connect their TCP connection
 
 Tor uses TLS connections between the onion routers to prevent message tampering by external adversaries and providing perfect forward secrecy (see next section). A client who wants to use the network has to establish a circuit consisting of several onion routers incrementally. Let's call the client Alice and the first onion router on her chosen circuit Bob\footnote{
 	Traditions have to be preserved!
-}. Bob (as well as every other onion router) owns a long-term identity key pair to sign TLS certificates and his router description and a short-term onion key pair used when setting up circuits. .\\ Alice sends Bob a \textit{create} control cell\footnote{
-	Tor cells have a fixed size of 512 bytes and always contain circuit identifier, the command and a payload. The command can be \textit{control} for cells which are interpreted by the receiving onion router or \textit{relay} for carrying end-to-end data.
+}. Bob (as well as every other onion router) owns a long-term identity key pair to sign TLS certificates and his router description and a short-term onion key pair used when setting up circuits. \\ Alice sends Bob a \textit{create} control cell\footnote{The protocol data units of Tor called cells which have a fixed size of 512 bytes and always contain circuit identifier, the command and a payload. The command can be \textit{control} for cells which are interpreted by the receiving onion router or \textit{relay} for carrying end-to-end data.
 } containing a unused circuit id and a DH\footnote{
 	The Diffie-Hellman key exchange is a method to exchange keys over a public network using public-key cryptography. Details can be found in \cite{diffie1976new}.
 } key exchange parameter \(g^x\) encrypted with Bob's onion key. Bob decrypts this parameter, computes the shared key \(K = g^{xy}\) and sends Alice a \textit{created} cell containing the circuit identifier and the DH parameter \(g^y\) so that Alice can compute \(K\) too.
@@ -61,34 +60,34 @@ But how does Bob know he is not the addressee of the cell during the handshake? 
 
 \subsection{Improvements to onion routing}
 
-While the approaches described in the previous subsection are quite similar to the original onion routing techniques, there are several improvements in Tor which this subsection will cover.
+While the approaches described in the previous subsection are quite similar to the original onion routing techniques, there are several improvements in Tor which this subsection will cover.\\
 
-\subsubsection{Directory servers} 
-Both - onion routing and Tor - have to give users access to state information about the network (known onion routers and their current states). In the onion routing design the network is flooded with these state informations (similar to normal routing protocols), which can be unreliable, complex and give attackers opportunities to exploit different client knowledge. Tor uses so called \textit{directory servers} to give clients access to the signed current network state. The users get a predefined list of directory servers with their Tor application and contact them periodically via HTTP to update their known network state.
+\textbf{Directory servers:} Both - onion routing and Tor - have to give users access to state information about the network (known onion routers and their current states). In the onion routing design the network is flooded with these state informations (similar to normal routing protocols), which can be unreliable, complex and give attackers opportunities to exploit different client knowledge. Tor uses so called \textit{directory servers} to give clients access to the signed current network state. The users get a predefined list of directory servers with their Tor application and contact them periodically via HTTP to update their known network state.
 
-\subsubsection{Rendezvous points and hidden services} 
-Previous sections all were dealing with how to prevent traffic analysis through the network to a well-known server. But Tor also has the ability to offer hidden services - servers which real addresses are hidden and which can just be contacted via so-called rendezvous points. This can for example prevent precise DoS-attacks.
+\textbf{Rendezvous points and hidden services:} Previous sections all were dealing with how to prevent traffic analysis through the network to a well-known server. But Tor also has the ability to offer hidden services - servers which real addresses are hidden and which can just be contacted via so-called rendezvous points. This can for example prevent precise DoS-attacks.
 
 An operator can announce several onion routers as contact points for his hidden service and builds circuits to them from his service. A client, who knows about the hidden service, can lookup the contact points and inform a contact point of a chosen onion router where the circuits should connect - the rendezvous point. The connection of both circuits is done by using a rendezvous cookie which is sent to the location point of the hidden service. Once again the Diffie-Hellman key exchange is used to negotiate a shared key between client and server to prevent even the rendezvous point to look into the message content.
 
 The onion routing design used long-living "reply onions", which were used to build a circuit to a hidden server. This approach failed if any onion router on the preestablished path went down or updated his keys.
 
-\subsubsection{Perfect forward secrecy} 
-Perfect forward secrecy describes the property of a key exchange protocol. By using ephemeral session keys, which cannot be derived from long-term keys and are deleted when not being required anymore, older messages cannot be decrypted even if the long-term key gets compromised.
+\textbf{Perfect forward secrecy:} Perfect forward secrecy describes the property of a key exchange protocol. By using ephemeral session keys, which cannot be derived from long-term keys and are deleted when not being required anymore, older messages cannot be decrypted even if the long-term key gets compromised.
 
 The original onion routing suffers from the problem that a single malicious node can record traffic and by compromising following nodes in the circuit making them to decrypt the recorded traffic. 
 To avoid this Tor uses an incremental path building design. The initiator negotiates session keys with each node in the circuit. When these keys are deleted after a circuit has been destroyed, the compromised nodes are not able to decrypt the recorded traffic.
 
 Another advantage is the usage of TLS between the onion routers enabling perfect forward secrecy on connection level.
 
-\subsubsection{Congestion control} 
-If many users choose the same connection between onion routers in their circuits, it is possible to overload a connection. To avoid this, Tor is able to control the circuit bandwidths in each onion router. It does this by using a TCP like window approach for incoming and outgoing connections.
+\textbf{Congestion control:} If many users choose the same connection between onion routers in their circuits, it is possible to overload a connection. To avoid this, Tor is able to control the circuit bandwidths in each onion router. It does this by using a TCP like window approach for incoming and outgoing connections.
 
-\subsubsection{Integrity checking} 
-Tor uses an end-to-end integrity checksum in its messages, which prevents altering messages in between. Additionally using TLS between the onion routers hampers the altering of data in connections between onion routers.
+\textbf{Integrity checking:} Tor uses an end-to-end integrity checksum in its messages, which prevents altering messages in between. Additionally using TLS between the onion routers hampers the altering of data in connections between onion routers.
 
-\subsubsection{Exit policies}
-Tor allows onion routers to provide a policy of allowed outgoing connections. This can be used to prohibit or just allow connections to special hosts or to limit the allowed protocols. Because Tor is a volunteer-based network these policies are required to give operators control over routed traffic.
+\textbf{Exit policies:} Tor allows onion routers to provide a policy of allowed outgoing connections. This can be used to prohibit or just allow connections to special hosts or to limit the allowed protocols. Because Tor is a volunteer-based network these policies are required to give operators control over routed traffic.
 
-\subsubsection{Leaky-pipe topology}
-A final advantage of Tor over onion routing is the already explained leaky pipe topology which allows requests leaving the Tor network in the middle of circuits. This makes traffic analysis even harder for adversaries, because just observing the begin and end of a circuit is not enough anymore.
+\textbf{Leaky-pipe topology:} A final advantage of Tor over onion routing is the already explained leaky pipe topology which allows requests leaving the Tor network in the middle of circuits. This makes traffic analysis even harder for adversaries, because just observing the begin and end of a circuit is not enough anymore.
+
+\textbf{Many TCP streams can share one circuit: } Tor multiplexes multiple TCP streans along each circuit to improve efficiency and anonymity.
+
+\textbf{Usage of a standard proxy interface}: Onion routing originally required a seperate "application proxy" for each supported application protocol. Tor uses the standard SOCKS proxy interface. Hence it is possible to support most of TCP-based programs without modification.
+
+\subsection{Non-goals of Tor}
+The developers from Tor have explicitly deferred several possible goals, either because they are solved elsewhere, or because they are not yet solved. Tor doesn't support secure peer-to-peer conections and is not secure against end-to-end attacks. Tor doesn't provide protocol normalization and has no steganographic.
