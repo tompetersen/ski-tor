@@ -28,7 +28,8 @@ Users of the network use an \textbf{onion proxy} to connect their TCP connection
 
 Tor uses TLS connections between the onion routers to prevent message tampering by external adversaries and providing perfect forward secrecy (see next section). A client who wants to use the network has to establish a circuit consisting of several onion routers incrementally. Let's call the client Alice and the first onion router on her chosen circuit Bob\footnote{
 	Traditions have to be preserved!
-}. Bob (as well as every other onion router) owns a long-term identity key pair to sign TLS certificates and his router description and a short-term onion key pair used when setting up circuits. \\ Alice sends Bob a \textit{create} control cell\footnote{The protocol data units of Tor called cells which have a fixed size of 512 bytes and always contain circuit identifier, the command and a payload. The command can be \textit{control} for cells which are interpreted by the receiving onion router or \textit{relay} for carrying end-to-end data.
+}. Bob (as well as every other onion router) owns a long-term identity key pair to sign TLS certificates and his router description and a short-term onion key pair used when setting up circuits. \\ Alice sends Bob a \textit{create} control cell\footnote{
+	The protocol data units of Tor - called cells - have a fixed size of 512 bytes and always contain circuit identifier, the command and a payload. The command can be \textit{control} for cells which are interpreted by the receiving onion router or \textit{relay} for carrying end-to-end data.
 } containing a unused circuit id and a DH\footnote{
 	The Diffie-Hellman key exchange is a method to exchange keys over a public network using public-key cryptography. Details can be found in \cite{diffie1976new}.
 } key exchange parameter \(g^x\) encrypted with Bob's onion key. Bob decrypts this parameter, computes the shared key \(K = g^{xy}\) and sends Alice a \textit{created} cell containing the circuit identifier and the DH parameter \(g^y\) so that Alice can compute \(K\) too.
@@ -85,9 +86,9 @@ Another advantage is the usage of TLS between the onion routers enabling perfect
 
 \textbf{Leaky-pipe topology:} A final advantage of Tor over onion routing is the already explained leaky pipe topology which allows requests leaving the Tor network in the middle of circuits. This makes traffic analysis even harder for adversaries, because just observing the begin and end of a circuit is not enough anymore.
 
-\textbf{Many TCP streams can share one circuit: } Tor multiplexes multiple TCP streans along each circuit to improve efficiency and anonymity.
+\textbf{Many TCP streams can share one circuit: } Tor can use one circuit for multiple TCP connections to improve efficiency and anonymity of the connections.
 
-\textbf{Usage of a standard proxy interface}: Onion routing originally required a seperate "application proxy" for each supported application protocol. Tor uses the standard SOCKS proxy interface. Hence it is possible to support most of TCP-based programs without modification.
+\textbf{Usage of a standard proxy interface}: Onion routing required a seperate application proxy for each application protocol. Tor uses the standard SOCKS proxy interface. Therefore it is possible to support most of TCP-based applications without modification.
 
 \subsection{Non-goals of Tor}
-The developers from Tor have explicitly deferred several possible goals, either because they are solved elsewhere, or because they are not yet solved. Tor doesn't support secure peer-to-peer conections and is not secure against end-to-end attacks. Tor doesn't provide protocol normalization and has no steganographic.
+The developers from Tor have explicitly deferred several possible goals, either because they are solved elsewhere, or because they are not yet solved. Tor doesn't support secure peer-to-peer connections and is not secure against end-to-end attacks. Tor doesn't provide protocol normalization or steganography.
